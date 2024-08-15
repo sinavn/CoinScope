@@ -18,7 +18,13 @@ struct HomeView: View {
             VStack{
                 homeHeader
                 Spacer()
-                coinListView
+                if isShowPortfolio{
+                    Text("body")
+                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .trailing)))
+                }else{
+                    coinListView
+                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .leading)))
+                }
             }
         }
         .onAppear {
@@ -69,10 +75,11 @@ extension HomeView {
     }
     
     private var coinListView : some View {
-        List {
+        ScrollView {
             ForEach(coinList) { coin in
-                Text(coin.name ?? "none")
+                CoinRowView(coin: coin, showHoldingsCulomn: isShowPortfolio)
             }
+            .background(Color.background)
         }
     }
 }

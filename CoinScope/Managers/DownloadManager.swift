@@ -35,7 +35,7 @@ class DownloadManager {
     }
 
     func getCoinData ()async throws -> [CoinModel]{
-        guard let url = URL(string: Constants.base_url+"/coins/markets?x_cg_demo_api_key="+Constants.apikey+"&vs_currency=usd") else {
+        guard let url = URL(string: Constants.base_url+"/coins/markets?x_cg_demo_api_key="+Constants.apikey+"&vs_currency=usd&sparkline=true&price_change_percentage=24h&order=market_cap_desc") else {
             throw NetworkError.invalidURL
         }
         do {
