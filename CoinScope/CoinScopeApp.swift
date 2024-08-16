@@ -11,10 +11,8 @@ import SwiftUI
 struct CoinScopeApp: App {
     var body: some Scene {
         WindowGroup {
-            NavigationStack{
-                HomeView()
-                    .toolbar(.hidden)
-            }
+                MainTabView()
+            
         }
     }
 }

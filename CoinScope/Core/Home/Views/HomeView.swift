@@ -2,85 +2,122 @@
 //  HomeView.swift
 //  CoinScope
 //
-//  Created by Sina Vosough Nia on 5/23/1403 AP.
+//  Created by Sina Vosough Nia on 5/26/1403 AP.
 //
 
 import SwiftUI
 
 struct HomeView: View {
     
-    @State private var isShowPortfolio = false
-    @State var coinList : [CoinModel] = []
+    @EnvironmentObject var viewModel : HomeViewModel
+    
     var body: some View {
-        ZStack {
-            Color.theme.BackgroundColor
-                .ignoresSafeArea()
-            VStack{
-                homeHeader
-                Spacer()
-                if isShowPortfolio{
-                    Text("body")
-                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .trailing)))
-                }else{
-                    coinListView
-                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .leading)))
+        
+        NavigationStack{
+            ScrollView{
+                LazyVStack(content: {
+                    Section {
+                        ForEach(viewModel.allCoins) { coin in
+                            CoinRowView(coin: coin, showHoldingsCulomn: false)
+                        }
+                    } header: {
+                        listTitles
+                            .background ()
+                    }
+                    
+                    
+                })
+            }
+                    .toolbar(content: {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Image(systemName: "person.crop.circle")
+                        }
+                       
+                    })
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle("Live Market")
+            .onAppear(perform: {
+                Task{
+                    await viewModel.getCoins()
                 }
-            }
+            })
+            
         }
-        .onAppear {
-            Task{
-               await getCoins()
-            }
-        }
+        .searchable(text: $viewModel.homeSearchField)
     }
-     func getCoins()async{
-        do {
-            let coins = try await DownloadManager.shared.getCoinData()
-            coinList = coins
-        } catch let error {
-            print(error)
-        }
-    }
+    
+    
 }
 
 #Preview {
-    NavigationStack{
-        HomeView()
-            .toolbar(.hidden)
-    }
+    HomeView()
+        .environmentObject(HomeViewModel())
 }
-
 extension HomeView {
-    private var homeHeader : some View{
-        HStack{
-            CircleButton(buttonTitle: isShowPortfolio ? "plus" : "info")
-                .contentTransition(.symbolEffect(.replace))
+    
+    private var listTitles : some View {
+        HStack {
+            HStack(spacing: 3){
+                VStack(spacing:2){
+                    Image(systemName: "chevron.up")
+                        .opacity(viewModel.sortOption == .coin && viewModel.isAscending == false ? 1 : 0.3)
+                    Image(systemName: "chevron.down")
+                        .opacity(viewModel.sortOption == .coin && viewModel.isAscending == true ? 1 : 0.3)
+                }
+                .font(.caption2)
+                Text("Coin")
+            }
+            .onTapGesture(perform: {
+                viewModel.toggleSort(option: .coin)
+            })
+            .frame(width: 120 , alignment: .center)
             
             Spacer()
-            Text(isShowPortfolio ? "live market" : "portfolio")
-                .foregroundStyle(Color.theme.accentColor)
-                .font(.headline)
-                .fontWeight(.heavy)
-                .contentTransition(.numericText())
-            Spacer()
-            CircleButton(buttonTitle: "chevron.right")
-                .onTapGesture(perform: {
-                    withAnimation(.bouncy) {
-                        isShowPortfolio.toggle()
+            
+            HStack(spacing : 3){
+                HStack{
+                    VStack(spacing:2){
+                        Image(systemName: "chevron.up")
+                            .opacity(viewModel.sortOption == .price && viewModel.isAscending == false ? 1 : 0.3)
+                        Image(systemName: "chevron.down")
+                            .opacity(viewModel.sortOption == .price && viewModel.isAscending == true ? 1 : 0.3)
                     }
+                    .font(.caption2)
+                    Text("Price")
+                }
+                .onTapGesture(perform: {
+                    viewModel.toggleSort(option: .price)
                 })
-                .rotationEffect(Angle(degrees: isShowPortfolio ? 180 : 0))
+                Text(" / ")
+                HStack{
+                    VStack(spacing:2){
+                        Image(systemName: "chevron.up")
+                            .opacity(viewModel.sortOption == .change24H && viewModel.isAscending == false ? 1 : 0.3)
+                        Image(systemName: "chevron.down")
+                            .opacity(viewModel.sortOption == .change24H && viewModel.isAscending == true ? 1 : 0.3)
+                        
+                    }
+                    .font(.caption2)
+                    Text("24H Chg")
+                }
+                .onTapGesture(perform: {
+                    viewModel.toggleSort(option: .change24H)
+                })
+            }
+            .frame(width: 130 , alignment: .center)
+            
         }
-        
+        .font(.caption)
     }
     
-    private var coinListView : some View {
-        ScrollView {
-            ForEach(coinList) { coin in
-                CoinRowView(coin: coin, showHoldingsCulomn: isShowPortfolio)
-            }
-            .background(Color.background)
-        }
-    }
+//    private var coinList : some View {
+//        List() {
+//            ForEach(viewModel.allCoins) { coin in
+//                CoinRowView(coin: coin, showHoldingsCulomn: false)
+//            }
+//            .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 5))
+//        }
+//        .listStyle(.plain)
+//        
+//    }
 }
-

@@ -14,22 +14,14 @@ struct CoinRowView: View {
     
     var body: some View {
         
-        GeometryReader(content: { geometry in
-            HStack{
-                leftColumn
-                Spacer()
-                if showHoldingsCulomn{
-                    centerCulomn
+                HStack(){
+                    leftColumn
+                    Spacer()
+                    if showHoldingsCulomn{
+                        centerCulomn
+                    }
+                   rightColumn
                 }
-               rightColumn
-                    .frame(width: geometry.size.width / 3.5,alignment: .trailing)
-
-                
-            }
-            
-        })
-        .frame(height: 50)
-        
     }
 }
 
@@ -62,19 +54,22 @@ extension CoinRowView {
             Text(coin.currentHoldingValue?.asCurrencyWith6Decimals() ?? "$0.0")
                 .bold()
             Text(coin.currentHoldings?.asNumberString() ?? " 0.0")
-        }
+        }      
+
 
     }
     
     private var rightColumn : some View {
-        VStack(alignment:.trailing){
-            Text("\(coin.currentPrice.asCurrencyWith6Decimals())")
-            Text(coin.priceChangePercentage24H?.asPercentString() ?? "0.00%")
-                .foregroundStyle(
-                    (coin.priceChange24H ?? 0) >= 0 ? Color.theme.GreenColor : Color.theme.RedColor
-                )
-        }
-        .padding(.trailing , 5)
+            VStack(alignment:.trailing){
+                Text("\(coin.currentPrice.asCurrencyWith6Decimals())")
+                Text(coin.priceChangePercentage24H?.asPercentString() ?? "0.00%")
+                    .foregroundStyle(
+                        (coin.priceChange24H ?? 0) >= 0 ? Color.theme.GreenColor : Color.theme.RedColor
+                    )
+            }
+            .frame(width: 100,alignment: .trailing)
+            .padding(.trailing , 5)
+        
     }
 }
 
