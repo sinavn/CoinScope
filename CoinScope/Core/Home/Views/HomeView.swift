@@ -37,9 +37,9 @@ struct HomeView: View {
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationTitle("Live Market")
             .onAppear(perform: {
-                Task{
-                    await viewModel.getCoins()
-                }
+//                Task{
+//                    await viewModel.getCoins()
+//                }
             })
             
         }

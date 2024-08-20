@@ -6,27 +6,47 @@
 //
 
 import Foundation
- 
+import Combine
 class HomeViewModel : ObservableObject {
-    
+    ///------Home Objects---
     @Published var allCoins : [CoinModel] = []
+    @Published var homeSearchField = ""
+    ///------sort objects---
     @Published var isAscending : Bool = true
     @Published var sortOption : SortOption = .coin
-    @Published var homeSearchField = ""
+    ///------services------
+    let coindataService = CoinDataService()
+    var cancellables = Set<AnyCancellable>()
+    
+    
+    ///------------------
+    
     enum SortOption {
         case coin , price , change24H
     }
     
-    func getCoins()async{
-       do {
-           let coins = try await DownloadManager.shared.getCoinData()
-          await MainActor.run {
-               allCoins = coins
-           }
-       } catch let error {
-           print(error)
-       }
-   }
+    init() {
+        addCoinDataSubscriber()
+    }
+    // MARK: -  functions
+
+    func addCoinDataSubscriber(){
+        coindataService.$allCoins
+            .sink {[weak self] returnedCoins in
+                self?.allCoins = returnedCoins
+            }
+            .store(in: &cancellables)
+    }
+//    func getCoins()async{
+//        do {
+//            let coins = try await DownloadManager.shared.getCoinData()
+//            await MainActor.run {
+//                allCoins = coins
+//            }
+//        } catch let error {
+//            print(error)
+//        }
+//    }
     
     private func sortCoins (){
         switch sortOption{

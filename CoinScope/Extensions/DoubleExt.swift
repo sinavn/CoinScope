@@ -21,7 +21,7 @@ extension Double {
 //        formatter.currencyCode = "usd"
 //        formatter.currencySymbol = "$"
         formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 4
+        formatter.maximumFractionDigits = 6
         return formatter
     }
     func asCurrencyWith6Decimals()->String{
