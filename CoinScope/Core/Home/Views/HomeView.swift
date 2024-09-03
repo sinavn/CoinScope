@@ -12,14 +12,17 @@ struct HomeView: View {
     @EnvironmentObject var viewModel : HomeViewModel
     
     var body: some View {
-        
         NavigationStack{
+         
             ScrollView{
                 LazyVStack(content: {
                     Section {
                         ForEach(viewModel.allCoins) { coin in
                             CoinRowView(coin: coin, showHoldingsCulomn: false)
                         }
+                        .animation(.default, value: viewModel.allCoins)
+                        
+
                     } header: {
                         listTitles
                             .background ()
@@ -28,6 +31,7 @@ struct HomeView: View {
                     
                 })
             }
+                    .clipped()
                     .toolbar(content: {
                         ToolbarItem(placement: .topBarTrailing) {
                             Image(systemName: "person.crop.circle")
@@ -37,13 +41,12 @@ struct HomeView: View {
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationTitle("Live Market")
             .onAppear(perform: {
-//                Task{
-//                    await viewModel.getCoins()
-//                }
+
             })
             
         }
-        .searchable(text: $viewModel.homeSearchField)
+        .searchable(text: $viewModel.homeSearchField , prompt:"Search for coin")
+        
     }
     
     

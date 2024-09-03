@@ -9,15 +9,14 @@ import SwiftUI
 
 struct MainTabView: View {
     
-    @State private var isShowPortfolio = false
-    @State var coinList : [CoinModel] = []
+//    @State private var isShowPortfolio = false
+//    @State var coinList : [CoinModel] = []
     @StateObject private var homeViewModel = HomeViewModel()
 
     var body: some View {
         TabView {
             // MARK: -  Home
 
-            
             HomeView()
                 .environmentObject(homeViewModel)
                 .tabItem {

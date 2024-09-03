@@ -10,14 +10,13 @@ import Combine
 class HomeViewModel : ObservableObject {
     ///------Home Objects---
     @Published var allCoins : [CoinModel] = []
-    @Published var homeSearchField = ""
     ///------sort objects---
+    @Published var homeSearchField = ""
     @Published var isAscending : Bool = true
     @Published var sortOption : SortOption = .coin
     ///------services------
     let coindataService = CoinDataService()
     var cancellables = Set<AnyCancellable>()
-    
     
     ///------------------
     
@@ -29,24 +28,27 @@ class HomeViewModel : ObservableObject {
         addCoinDataSubscriber()
     }
     // MARK: -  functions
-
+    
     func addCoinDataSubscriber(){
-        coindataService.$allCoins
+        $homeSearchField
+            .combineLatest(coindataService.$allCoins)
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .map(filterCoins)
             .sink {[weak self] returnedCoins in
                 self?.allCoins = returnedCoins
             }
             .store(in: &cancellables)
     }
-//    func getCoins()async{
-//        do {
-//            let coins = try await DownloadManager.shared.getCoinData()
-//            await MainActor.run {
-//                allCoins = coins
-//            }
-//        } catch let error {
-//            print(error)
-//        }
-//    }
+    private func filterCoins (text : String , coins : [CoinModel])->[CoinModel]{
+        guard !text.isEmpty else{
+            return coins
+        }
+        let lowerCasedText = text.lowercased()
+        return coins.filter({
+            $0.name.contains(lowerCasedText)||$0.symbol.contains(lowerCasedText)||$0.id.contains(lowerCasedText)
+        })
+    }
+    
     
     private func sortCoins (){
         switch sortOption{

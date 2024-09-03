@@ -42,7 +42,11 @@
 
 
    import Foundation
-struct CoinModel : Codable , Identifiable {
+struct CoinModel : Codable , Identifiable , Equatable{
+    static func == (lhs: CoinModel, rhs: CoinModel) -> Bool {
+        lhs.id == rhs.id 
+    }
+    
     let id, symbol, name: String
     let image: String
     let currentPrice : Double
