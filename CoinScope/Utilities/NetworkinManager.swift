@@ -56,4 +56,26 @@ class NetworkinManager {
                print(error)
            }
     }
+    
+   static func getGasPrice () async throws -> GweiModel{
+        guard let url = URL(string: Constants.etherScanBseURL + "?module=gastracker&action=gasoracle&apikey=" + Constants.etherScanAPIKey) else {
+            throw NetworkError.invalidURL
+        }
+        do {
+            let (data , response) = try await URLSession.shared.data(from: url)
+            guard let urlResponse = response as? HTTPURLResponse else { throw NetworkError.unknownError}
+            if urlResponse.statusCode >= 200 && urlResponse.statusCode < 300 {
+                do{
+                    let result = try JSONDecoder().decode(GweiModel.self, from: data)
+                    return result
+                }catch let decodingError{
+                   throw  NetworkError.decodingFailed(decodingError)
+                }
+            }else{
+                throw NetworkError.serverError(statusCode: urlResponse.statusCode)
+            }
+        } catch let error as NetworkError {
+            throw error
+        }
+    }
 }

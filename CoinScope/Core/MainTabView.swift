@@ -23,6 +23,11 @@ struct MainTabView: View {
                     Label("Live Market", systemImage: "chart.bar")
                 }
             
+            MarketDataView()
+                .tabItem {
+                    Label("Market OverView", systemImage: "globe")
+                }
+            
             // MARK: -  portfolio
 
             VStack{

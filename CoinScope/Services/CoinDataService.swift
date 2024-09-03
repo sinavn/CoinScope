@@ -17,7 +17,7 @@ class CoinDataService {
     }
     
     func getCoins(){
-        guard let url = URL(string: Constants.base_url+"/coins/markets?x_cg_demo_api_key="+Constants.apikey+"&vs_currency=usd&sparkline=true&price_change_percentage=24h&order=market_cap_desc") else {return}
+        guard let url = URL(string: Constants.CGBaseURL+"/coins/markets?x_cg_demo_api_key="+Constants.CGAPIkey+"&vs_currency=usd&sparkline=true&price_change_percentage=24h&order=market_cap_desc") else {return}
         
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -28,8 +28,5 @@ class CoinDataService {
                 self?.allCoins = result
                 self?.coinsSubscription?.cancel()
             })
-            
-             
-
     }
 }
