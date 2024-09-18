@@ -21,6 +21,9 @@ class DeveloperPreview {
     static let shared = DeveloperPreview()
     private init(){}
     
+    let stat1 = StatisticModel(title: "Market Cap", value: "$13.4Bn", changePrecent: 3.24)
+    let stat2 = StatisticModel(title: "Total Volume", value: "1.23Tr")
+    let stat3 = StatisticModel(title: "Portfolio Change", value: "$17.8k", changePrecent: -8.34)
     let coin = CoinModel(
        id: "bitcoin",
        symbol: "btc",

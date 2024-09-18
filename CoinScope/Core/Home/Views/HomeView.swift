@@ -10,31 +10,27 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var viewModel : HomeViewModel
-    
+    @State var isSearching: Bool = false
     var body: some View {
         NavigationStack{
          
             ScrollView{
-                LazyVStack(content: {
-                    Section {
-                        ForEach(viewModel.allCoins) { coin in
-                            CoinRowView(coin: coin, showHoldingsCulomn: false)
-                        }
-                        .animation(.default, value: viewModel.allCoins)
-                        
-
-                    } header: {
-                        listTitles
-                            .background ()
+                VStack{
+                    HStack{
+                        StatisticView(stats: StatisticModel(title: "market Cap", value: "$50b"))
+                        StatisticView(stats: StatisticModel(title: "market volume", value: "$200m", changePrecent: 2.3))
                     }
-                    
-                    
-                })
+                    coinList
+                }
+                
             }
                     .clipped()
                     .toolbar(content: {
                         ToolbarItem(placement: .topBarTrailing) {
                             Image(systemName: "person.crop.circle")
+                                .onTapGesture {
+                                    isSearching.toggle()
+                                }
                         }
                        
                     })
@@ -45,7 +41,8 @@ struct HomeView: View {
             })
             
         }
-        .searchable(text: $viewModel.homeSearchField , prompt:"Search for coin")
+        .searchable(text: $viewModel.homeSearchField,isPresented: $isSearching , prompt:"Search for coin")
+        
         
     }
     
@@ -113,14 +110,18 @@ extension HomeView {
         .font(.caption)
     }
     
-//    private var coinList : some View {
-//        List() {
-//            ForEach(viewModel.allCoins) { coin in
-//                CoinRowView(coin: coin, showHoldingsCulomn: false)
-//            }
-//            .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 5))
-//        }
-//        .listStyle(.plain)
-//        
-//    }
+    private var coinList : some View {
+        LazyVStack(content: {
+            Section {
+                ForEach(viewModel.allCoins) { coin in
+                    CoinRowView(coin: coin, showHoldingsCulomn: false)
+                }
+                .animation(.default, value: viewModel.allCoins)
+            } header: {
+                listTitles
+                    .background ()
+            }
+        })
+    }
+
 }
