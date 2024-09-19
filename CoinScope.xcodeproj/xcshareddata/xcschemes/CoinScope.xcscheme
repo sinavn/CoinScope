@@ -51,13 +51,13 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "&quot;CG_API_key&quot;"
-            value = "&quot;HZDH6BCNFXCEVT534MWSD685DHMZ4HDE37&quot;"
+            key = "ETHER_SCAN_APIKEY"
+            value = "HZDH6BCNFXCEVT534MWSD685DHMZ4HDE37"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "&quot;ETHER_SCAN_APIKEY&quot;"
-            value = "&quot;CG-QuHSomkggWgdJWa3ybkozYZT&quot;"
+            key = "CG_API_key"
+            value = "CG-QuHSomkggWgdJWa3ybkozYZT"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
