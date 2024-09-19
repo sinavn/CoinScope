@@ -10,12 +10,14 @@ import Combine
 class HomeViewModel : ObservableObject {
     ///------Home Objects---
     @Published var allCoins : [CoinModel] = []
+    @Published var homeMarketData : GlobalMarketDataModel?
     ///------sort objects---
     @Published var homeSearchField = ""
     @Published var isAscending : Bool = true
     @Published var sortOption : SortOption = .coin
     ///------services------
     let coindataService = CoinDataService()
+    let globalDataService = GlobalDataService()
     var cancellables = Set<AnyCancellable>()
     
     ///------------------
@@ -26,16 +28,24 @@ class HomeViewModel : ObservableObject {
     
     init() {
         addCoinDataSubscriber()
+        addGlobalDataService()
     }
     // MARK: -  functions
     
-    func addCoinDataSubscriber(){
+    private func addCoinDataSubscriber(){
         $homeSearchField
             .combineLatest(coindataService.$allCoins)
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .map(filterCoins)
             .sink {[weak self] returnedCoins in
                 self?.allCoins = returnedCoins
+            }
+            .store(in: &cancellables)
+    }
+    private func addGlobalDataService(){
+        globalDataService.$globalMarketData
+            .sink {[weak self] recievedGlobalData in
+                self?.homeMarketData = recievedGlobalData
             }
             .store(in: &cancellables)
     }

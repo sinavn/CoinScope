@@ -10,49 +10,38 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var viewModel : HomeViewModel
-    @State var isSearching: Bool = false
     var body: some View {
         NavigationStack{
-         
+            
             ScrollView{
                 VStack{
-                    HStack{
-                        StatisticView(stats: StatisticModel(title: "market Cap", value: "$50b"))
-                        StatisticView(stats: StatisticModel(title: "market volume", value: "$200m", changePrecent: 2.3))
-                    }
+                    homeGlobalStats
                     coinList
                 }
-                
             }
-                    .clipped()
-                    .toolbar(content: {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Image(systemName: "person.crop.circle")
-                                .onTapGesture {
-                                    isSearching.toggle()
-                                }
-                        }
-                       
-                    })
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle("Live Market")
+            .toolbar(content: {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Image(systemName: "person.crop.circle")
+                    
+                }
+                
+            })
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Live Market")
             .onAppear(perform: {
-
+                
             })
             
         }
-        .searchable(text: $viewModel.homeSearchField,isPresented: $isSearching , prompt:"Search for coin")
-        
-        
+        .searchable(text: $viewModel.homeSearchField, prompt:"Search for coin")
     }
-    
-    
 }
 
 #Preview {
     HomeView()
         .environmentObject(HomeViewModel())
 }
+
 extension HomeView {
     
     private var listTitles : some View {
@@ -122,6 +111,18 @@ extension HomeView {
                     .background ()
             }
         })
+        .clipped()
     }
-
+    
+    private var homeGlobalStats : some View{
+        HStack{
+            StatisticView(stats: StatisticModel(title: "market Cap", value: viewModel.homeMarketData?.marketCap ?? "nil" , changePrecent: viewModel.homeMarketData?.marketCapChangePercentage24HUsd))
+            Spacer()
+            StatisticView(stats: StatisticModel(title: "market volume", value: viewModel.homeMarketData?.marketVolume ?? "null"))
+            Spacer()
+            StatisticView(stats: StatisticModel(title: "Dominance", value: viewModel.homeMarketData?.dominance ?? "null"))
+        }
+        .padding(.horizontal)
+    }
+    
 }

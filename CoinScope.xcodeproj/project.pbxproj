@@ -10,6 +10,8 @@
 		6C1B18072C8788B200C86865 /* GweiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1B18062C8788B200C86865 /* GweiModel.swift */; };
 		6C1B180A2C87983B00C86865 /* MarketDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1B18092C87983B00C86865 /* MarketDataView.swift */; };
 		6C1B180C2C87986F00C86865 /* MarketDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1B180B2C87986F00C86865 /* MarketDataViewModel.swift */; };
+		6C3340932C9C2A040029960A /* GlobalDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3340922C9C2A040029960A /* GlobalDataModel.swift */; };
+		6C3340952C9C2C010029960A /* GlobalDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3340942C9C2C010029960A /* GlobalDataService.swift */; };
 		6C5FB77D2C74C8D500E5323B /* NetworkinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FB77C2C74C8D500E5323B /* NetworkinManager.swift */; };
 		6C5FB77F2C7518A000E5323B /* CoinImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FB77E2C7518A000E5323B /* CoinImageView.swift */; };
 		6C5FB7812C751C7800E5323B /* CoinImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FB7802C751C7800E5323B /* CoinImageService.swift */; };
@@ -42,6 +44,8 @@
 		6C1B18062C8788B200C86865 /* GweiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GweiModel.swift; sourceTree = "<group>"; };
 		6C1B18092C87983B00C86865 /* MarketDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataView.swift; sourceTree = "<group>"; };
 		6C1B180B2C87986F00C86865 /* MarketDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDataViewModel.swift; sourceTree = "<group>"; };
+		6C3340922C9C2A040029960A /* GlobalDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalDataModel.swift; sourceTree = "<group>"; };
+		6C3340942C9C2C010029960A /* GlobalDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalDataService.swift; sourceTree = "<group>"; };
 		6C5FB77C2C74C8D500E5323B /* NetworkinManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkinManager.swift; sourceTree = "<group>"; };
 		6C5FB77E2C7518A000E5323B /* CoinImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinImageView.swift; sourceTree = "<group>"; };
 		6C5FB7802C751C7800E5323B /* CoinImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinImageService.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 			children = (
 				6C692A5F2C712F2F00E0E669 /* CoinDataService.swift */,
 				6C5FB7802C751C7800E5323B /* CoinImageService.swift */,
+				6C3340942C9C2C010029960A /* GlobalDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 				6CFC28CE2C6B936B00DE2416 /* CoinModel.swift */,
 				6C1B18062C8788B200C86865 /* GweiModel.swift */,
 				6C7CE4CF2C8F098800A8EF3A /* StatisticModel.swift */,
+				6C3340922C9C2A040029960A /* GlobalDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -352,7 +358,9 @@
 				6C692A462C6E31AF00E0E669 /* CoinRowView.swift in Sources */,
 				6CFC28CF2C6B936B00DE2416 /* CoinModel.swift in Sources */,
 				6C7CE4D42C8F793800A8EF3A /* HomeStatsView.swift in Sources */,
+				6C3340952C9C2C010029960A /* GlobalDataService.swift in Sources */,
 				6C692A482C6E326200E0E669 /* PreviewExt.swift in Sources */,
+				6C3340932C9C2A040029960A /* GlobalDataModel.swift in Sources */,
 				6C692A602C712F2F00E0E669 /* CoinDataService.swift in Sources */,
 				6C692A5A2C6FA48F00E0E669 /* PortfolioViewModel.swift in Sources */,
 				6C1B180A2C87983B00C86865 /* MarketDataView.swift in Sources */,
