@@ -42,9 +42,12 @@
 
 
    import Foundation
-struct CoinModel : Codable , Identifiable , Equatable{
+struct CoinModel : Codable , Identifiable , Equatable , Hashable{
     static func == (lhs: CoinModel, rhs: CoinModel) -> Bool {
         lhs.id == rhs.id 
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     let id, symbol, name: String

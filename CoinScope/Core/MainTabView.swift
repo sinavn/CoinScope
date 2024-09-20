@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
+import Combine
 
 struct MainTabView: View {
     
 //    @State private var isShowPortfolio = false
 //    @State var coinList : [CoinModel] = []
     @StateObject private var homeViewModel = HomeViewModel()
-
+    @StateObject private var portfolioViewModel = PortfolioViewModel()
+    @State var homeViewModelAllCoinsSubscription : AnyCancellable?
     var body: some View {
         TabView {
             // MARK: -  Home
@@ -23,6 +25,8 @@ struct MainTabView: View {
                     Label("Live Market", systemImage: "chart.bar")
                 }
             
+            // MARK: -  market overview
+
             MarketDataView()
                 .tabItem {
                     Label("Market OverView", systemImage: "globe")
@@ -30,18 +34,21 @@ struct MainTabView: View {
             
             // MARK: -  portfolio
 
-            VStack{
-                ScrollView{
-                    ForEach(0..<20) { _ in
-                        Circle()
-                    }
-                }
-            }
+            PortfolioView()
+                .environmentObject(portfolioViewModel)
                 .tabItem {
                     Label("Portfolio", systemImage: "bag")
                 }
         }
-        
+        .onAppear {
+            homeViewModelAllCoinsSubscription = homeViewModel.$allCoins
+                .sink { coins in
+                    portfolioViewModel.coinList = coins
+//                    homeViewModelAllCoinsSubscription?.cancel()
+                }
+                
+                
+        }
         .tabViewStyle(.automatic)
         
 
