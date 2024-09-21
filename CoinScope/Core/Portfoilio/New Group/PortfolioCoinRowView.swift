@@ -20,6 +20,8 @@ struct PortfolioCoinRowView: View {
             
             rightColumn
         }
+        .background(Color.theme.BackgroundColor.opacity(0.01))
+
     }
 }
 

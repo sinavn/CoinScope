@@ -18,7 +18,8 @@ struct HomeView: View {
                     coinList
                 }
                 .navigationDestination(for: CoinModel.self) { coin in
-                    CoinDetailView(coin: coin)
+                    CoinDetailView()
+                        .environmentObject(CoinDetailViewModel(coin: coin))
                 }
             }
             .toolbar(content: {

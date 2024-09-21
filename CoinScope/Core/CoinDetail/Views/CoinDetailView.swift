@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct CoinDetailView: View {
-    @State var coin : CoinModel
+    @EnvironmentObject var viewModel : CoinDetailViewModel
    
     var body: some View {
-        Text("\(coin.name)!")
+        
+        Text(viewModel.coinDetail?.description?.en ?? "no description")
     }
 }
 

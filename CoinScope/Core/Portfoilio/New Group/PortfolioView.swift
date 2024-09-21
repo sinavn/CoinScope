@@ -27,7 +27,8 @@ struct PortfolioView: View {
             .navigationDestination(for: NavigationDestination.self) { destination in
                 switch destination {
                 case .CoinDetailView(let coin):
-                    CoinDetailView(coin: coin)
+                    CoinDetailView()
+                        .environmentObject(CoinDetailViewModel(coin: coin))
                 case .addListView :
                     AddListView()
                 }
