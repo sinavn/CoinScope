@@ -13,36 +13,38 @@ struct AddCoinView: View {
     @State var coinAmountTextField : String = ""
 
     var body: some View {
-        
-        TextField("", text: $coinAmountTextField, prompt: Text("ex: 0.23 "))
-        
-            .frame(maxWidth: .infinity , maxHeight: 40)
-            .foregroundStyle(Color.theme.accentColor)
-            .background(content: {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.theme.BackgroundColor)
-                    .shadow(color: Color.theme.accentColor.opacity(0.5), radius: 10)
-            })
-            .keyboardType(.decimalPad)
-            .padding()
-            
-        Button(action: {
-            addCoin()
-            viewModel.navigationPath = NavigationPath()
-        }, label: {
-            Text("Add \(coin.name)")
+        VStack{
+            TextField("", text: $coinAmountTextField, prompt: Text("ex: 0.23 "))
                 .frame(maxWidth: .infinity , maxHeight: 40)
-                .background {
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundStyle(.purple)
-                }
+                .foregroundStyle(Color.theme.accentColor)
                 .padding(.horizontal)
-        })
+                .background(content: {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.theme.BackgroundColor)
+                        .shadow(color: Color.theme.accentColor.opacity(0.3), radius: 10 , y: 5)
+                })
+                .keyboardType(.decimalPad)
+                .padding()
+            
+            Button(action: {
+                addCoin()
+                viewModel.navigationPath = NavigationPath()
+            }, label: {
+                Text("Add \(coin.name)")
+                    .frame(maxWidth: .infinity , maxHeight: 40)
+                    .background {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundStyle(.purple)
+                    }
+                    .padding(.horizontal)
+            })
+        }
+        .navigationTitle("\(coin.symbol)")
     }
+        
     
     private func addCoin (){
-        let updatedCoin = coin.updateHolding(amount: Double(coinAmountTextField) ?? 0)
-        viewModel.Holdings.append(updatedCoin)
+        viewModel.updateCoin(coin: coin, amount: Double(coinAmountTextField) ?? 0)
     }
 }
 

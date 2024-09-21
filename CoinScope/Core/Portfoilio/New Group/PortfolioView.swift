@@ -10,19 +10,33 @@ import SwiftUI
 struct PortfolioView: View {
     @EnvironmentObject var viewModel : PortfolioViewModel
     
+    enum NavigationDestination : Hashable {
+        case CoinDetailView(CoinModel)
+        case addListView
+    }
+    
     var body: some View {
         NavigationStack(path: $viewModel.navigationPath, root:{
             ZStack{
-                if viewModel.Holdings.isEmpty{
+                if viewModel.holdings.isEmpty{
                     emptyStateView
                 }else{
                     holdingsView
                 }
             }
-            .navigationDestination(for: String.self) { _ in
-                AddListView()
+            .navigationDestination(for: NavigationDestination.self) { destination in
+                switch destination {
+                case .CoinDetailView(let coin):
+                    CoinDetailView(coin: coin)
+                case .addListView :
+                    AddListView()
+                }
             }
+           
+            .navigationTitle("Portfolio")
+            .navigationBarTitleDisplayMode(.inline)
         })
+       
     }
 }
 
@@ -33,23 +47,78 @@ struct PortfolioView: View {
 
 extension PortfolioView {
     var holdingsView : some View{
-        ScrollView{
-            LazyVStack{
-                ForEach(viewModel.Holdings){ coin in
-                    CoinRowView(coin: coin, showHoldingsCulomn: true)
+        
+        ZStack{
+            List{
+                    Rectangle()
+                        .fill(Color.theme.BackgroundColor)
+                        .frame(width:nil , height: 130)
+                        .listRowSeparator(.hidden, edges: .all)
+                    ForEach($viewModel.holdings){ $coin in
+                        PortfolioCoinRowView(coin: $coin )
+                            .onTapGesture {
+                                viewModel.navigationPath.append(NavigationDestination.CoinDetailView(coin))
+                            }
+                            .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                            .swipeActions(allowsFullSwipe: true) {
+                                Button(role: .destructive, action: {
+                                    viewModel.updateCoin(coin: coin, amount: 0)
+                                }, label: {
+                                    Label("Delete", systemImage: "trash")
+                                })
+                                Button(action: {
+                                
+                                }, label: {
+                                    Label("edit", systemImage: "pencil.circle")
+                                })
+                                .tint(.blue)
+                            }
+                    }
+
+                    
+                    
+                HStack(alignment:.center){
+                    Button(action: {viewModel.navigationPath.append(NavigationDestination.addListView)},
+                           label: {
+                        Image(systemName: "plus")
+                            .foregroundStyle(Color.theme.accentColor.opacity(0.6))
+                    })
+                    .frame(maxWidth: .infinity, maxHeight: 30)
                 }
-                Button("add", action: {
-                    viewModel.navigationPath.append("navigateToCoinList")
-                })
+                .listRowSeparator(.hidden, edges: .all)
+
             }
+            .listStyle(.plain)
+            .toolbar {
+//                EditButton()
+            }
+            VStack{
+                headerView
+                Spacer()
+            }
+            
         }
+        
+    }
+    
+    var headerView : some View{
+        VStack(alignment:.leading){
+            Text("Est. Assets")
+                .font(.caption)
+            Text(viewModel.holdingsValue.asCurrencyWith6Decimals())
+                
+                .font(.title)
+        }
+        .frame(maxWidth: .infinity , maxHeight: 130 , alignment:.leading)
+        .padding(.horizontal)
+        .background(.ultraThinMaterial)
     }
     
     var emptyStateView : some View {
         VStack{
-        NoHoldingsView(onButtonTap: {
-            viewModel.navigationPath.append("navigateToCoinList")
-        })
+            NoHoldingsView(onButtonTap: {
+                viewModel.navigationPath.append(NavigationDestination.addListView)
+            })
         }
     }
 }

@@ -67,7 +67,7 @@ struct CoinModel : Codable , Identifiable , Equatable , Hashable{
     let lastUpdated: String?
     let sparklineIn7D : SparklineIn7D?
     let priceChangePercentage24HInCurrency: Double?
-    let currentHoldings : Double?
+    var currentHoldings : Double?
     
     //    enum CodingKeys: String, CodingKey {
     //            case id, symbol, name, image

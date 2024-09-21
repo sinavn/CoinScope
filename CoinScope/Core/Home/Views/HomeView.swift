@@ -11,18 +11,19 @@ struct HomeView: View {
     
     @EnvironmentObject var viewModel : HomeViewModel
     var body: some View {
-        NavigationStack{
-            
+        NavigationStack(path: $viewModel.homeNavigationPath, root: {
             ScrollView{
                 VStack{
                     homeGlobalStats
                     coinList
                 }
+                .navigationDestination(for: CoinModel.self) { coin in
+                    CoinDetailView(coin: coin)
+                }
             }
             .toolbar(content: {
                 ToolbarItem(placement: .topBarTrailing) {
                     Image(systemName: "person.crop.circle")
-                    
                 }
                 
             })
@@ -32,7 +33,7 @@ struct HomeView: View {
                 
             })
             
-        }
+        })
         .searchable(text: $viewModel.homeSearchField, prompt:"Search for coin")
     }
 }
@@ -104,6 +105,9 @@ extension HomeView {
             Section {
                 ForEach(viewModel.allCoins) { coin in
                     CoinRowView(coin: coin, showHoldingsCulomn: false)
+                        .onTapGesture {
+                            viewModel.homeNavigationPath.append(coin)
+                        }
                 }
                 .animation(.default, value: viewModel.allCoins)
             } header: {

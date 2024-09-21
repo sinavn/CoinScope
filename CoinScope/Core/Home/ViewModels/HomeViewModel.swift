@@ -5,12 +5,13 @@
 //  Created by Sina Vosough Nia on 5/26/1403 AP.
 //
 
-import Foundation
+import SwiftUI
 import Combine
 class HomeViewModel : ObservableObject {
     ///------Home Objects---
     @Published var allCoins : [CoinModel] = []
     @Published var homeMarketData : GlobalMarketDataModel?
+    @Published var homeNavigationPath = NavigationPath()
     ///------sort objects---
     @Published var homeSearchField = ""
     @Published var isAscending : Bool = true

@@ -13,7 +13,7 @@ struct AddListView: View {
         ScrollView{
             LazyVStack{
                 ForEach(viewModel.filteredCoins){ coin in
-                    CoinRowView(coin: coin, showHoldingsCulomn: true)
+                    CoinRowView(coin: coin, showHoldingsCulomn: false)
                         .onTapGesture {
                             viewModel.navigationPath.append(coin)
                         }
@@ -23,6 +23,7 @@ struct AddListView: View {
                 AddCoinView(coin: coin)
             }
         }
+        .navigationTitle("Coins")
         .searchable(text: $viewModel.addCoinSearchField)
     }
 }
