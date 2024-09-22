@@ -113,8 +113,8 @@
 		6C1B18082C87981F00C86865 /* MarketData */ = {
 			isa = PBXGroup;
 			children = (
-				6C6BDD042C8C904400CDEBDC /* ViewModels */,
 				6C6BDD032C8C902D00CDEBDC /* Views */,
+				6C6BDD042C8C904400CDEBDC /* ViewModels */,
 				6C6BDD022C8C901000CDEBDC /* Components */,
 			);
 			path = MarketData;

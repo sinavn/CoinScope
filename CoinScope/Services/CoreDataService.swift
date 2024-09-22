@@ -57,7 +57,7 @@ class CoreDataService {
     }
     
     private func update (entity : PortfolioEntity , NewAmount : Double){
-        entity.amount += NewAmount
+        entity.amount = NewAmount
         applyChanges()
     }
     

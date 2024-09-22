@@ -13,6 +13,7 @@ struct PortfolioView: View {
     enum NavigationDestination : Hashable {
         case CoinDetailView(CoinModel)
         case addListView
+        case editCoinView(CoinModel)
     }
     
     var body: some View {
@@ -31,6 +32,8 @@ struct PortfolioView: View {
                         .environmentObject(CoinDetailViewModel(coin: coin))
                 case .addListView :
                     AddListView()
+                case .editCoinView(let coin):
+                    AddCoinView(coin: coin)
                 }
             }
            
@@ -68,7 +71,7 @@ extension PortfolioView {
                                     Label("Delete", systemImage: "trash")
                                 })
                                 Button(action: {
-                                
+                                    viewModel.navigationPath.append(NavigationDestination.editCoinView(coin))
                                 }, label: {
                                     Label("edit", systemImage: "pencil.circle")
                                 })

@@ -121,11 +121,11 @@ extension HomeView {
     
     private var homeGlobalStats : some View{
         HStack{
-            StatisticView(stats: StatisticModel(title: "market Cap", value: viewModel.homeMarketData?.marketCap ?? "nil" , changePrecent: viewModel.homeMarketData?.marketCapChangePercentage24HUsd))
+            StatisticView(stats: StatisticModel(title: "market Cap", value: viewModel.homeMarketData?.marketCap ?? "n/a" , changePrecent: viewModel.homeMarketData?.marketCapChangePercentage24HUsd))
             Spacer()
-            StatisticView(stats: StatisticModel(title: "market volume", value: viewModel.homeMarketData?.marketVolume ?? "null"))
+            StatisticView(stats: StatisticModel(title: "market volume", value: viewModel.homeMarketData?.marketVolume ?? "n/a"))
             Spacer()
-            StatisticView(stats: StatisticModel(title: "Dominance", value: viewModel.homeMarketData?.dominance ?? "null"))
+            StatisticView(stats: StatisticModel(title: "Dominance", value: viewModel.homeMarketData?.dominance ?? "n/a"))
         }
         .padding(.horizontal)
     }

@@ -10,8 +10,7 @@ import Combine
 
 struct MainTabView: View {
     
-//    @State private var isShowPortfolio = false
-//    @State var coinList : [CoinModel] = []
+
     @StateObject private var homeViewModel = HomeViewModel()
     @StateObject private var portfolioViewModel = PortfolioViewModel()
     @State var homeViewModelAllCoinsSubscription : AnyCancellable?
@@ -62,30 +61,4 @@ struct MainTabView: View {
     }
 }
 
-extension MainTabView {
-//    private var homeHeader : some View{
-//        HStack{
-//            CircleButton(buttonTitle: isShowPortfolio ? "plus" : "info")
-//                .contentTransition(.symbolEffect(.replace))
-//            
-//            Spacer()
-//            Text(isShowPortfolio ? "live market" : "portfolio")
-//                .foregroundStyle(Color.theme.accentColor)
-//                .font(.headline)
-//                .fontWeight(.heavy)
-//                .contentTransition(.numericText())
-//            Spacer()
-//            CircleButton(buttonTitle: "chevron.right")
-//                .onTapGesture(perform: {
-//                    withAnimation(.bouncy) {
-//                        isShowPortfolio.toggle()
-//                    }
-//                })
-//                .rotationEffect(Angle(degrees: isShowPortfolio ? 180 : 0))
-//        }
-//        
-//    }
-    
-   
-}
 
