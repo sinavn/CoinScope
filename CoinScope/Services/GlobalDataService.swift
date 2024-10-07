@@ -16,7 +16,7 @@ class GlobalDataService{
         getData()
     }
     
-    private func getData (){
+     func getData (){
         guard let url = URL(string: Constants.CGBaseURL + "/global?x_cg_demo_api_key=" + Constants.CGAPIkey) else{return}
         
         let decoder = JSONDecoder()

@@ -33,8 +33,17 @@ class NetworkinManager {
         
         }
     }
+    static func downloadData(url : URL) async throws -> Data{
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let httpResponse = response as? HTTPURLResponse , httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 else {throw NetworkError.serverError(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 1)}
+        return data
+//        URLSession.shared.dataTaskPublisher(for: url)
+//            .tryMap(handleResponse)
+//            .receive(on: DispatchQueue.main)
+//            .eraseToAnyPublisher()
+    }
     
-    static func download (url : URL)-> AnyPublisher<Data, any Error>{
+    static func download(url : URL)-> AnyPublisher<Data, any Error>{
         URLSession.shared.dataTaskPublisher(for: url)
             .tryMap(handleResponse)
             .receive(on: DispatchQueue.main)

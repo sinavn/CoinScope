@@ -10,32 +10,39 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var viewModel : HomeViewModel
+    @State var scrollPos = 0.0
     var body: some View {
         NavigationStack(path: $viewModel.homeNavigationPath, root: {
-            ScrollView{
-                VStack{
-                    homeGlobalStats
-                    coinList
+            VStack{
+                homeGlobalStats
+                ScrollView{
+                    VStack{
+                        
+                        coinList
+                    }
+                    .navigationDestination(for: CoinModel.self) { coin in
+                        CoinDetailView()
+                            .environmentObject(CoinDetailViewModel(coin: coin))
+                    }
                 }
-                .navigationDestination(for: CoinModel.self) { coin in
-                    CoinDetailView()
-                        .environmentObject(CoinDetailViewModel(coin: coin))
-                }
+                .refreshable(action: {
+                    await viewModel.coindataService.getCoins()
+                    viewModel.globalDataService.getData()
+                })
+                .toolbar(content: {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Image(systemName: "person.crop.circle")
+                    }
+                    
+                })
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Live Market")
+                .onAppear(perform: {
+                    
+                })
             }
-            .toolbar(content: {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Image(systemName: "person.crop.circle")
-                }
-                
-            })
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Live Market")
-            .onAppear(perform: {
-                
-            })
-            
         })
-        .searchable(text: $viewModel.homeSearchField, prompt:"Search for coin")
+                .searchable(text: $viewModel.homeSearchField, prompt:"Search for coin")
     }
 }
 
