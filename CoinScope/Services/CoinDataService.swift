@@ -20,7 +20,6 @@ class CoinDataService {
     
     func getCoins()async{
         guard let url = URL(string: Constants.CGBaseURL+"/coins/markets?x_cg_demo_api_key="+Constants.CGAPIkey+"&vs_currency=usd&sparkline=true&price_change_percentage=24h&order=market_cap_desc") else {return}
-        
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         

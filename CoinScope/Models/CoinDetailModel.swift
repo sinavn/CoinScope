@@ -110,6 +110,9 @@ struct CoinDetailModel : Codable {
     let description: Description?
     let links: Links?
     let sentimentVotesUpPercentage, sentimentVotesDownPercentage: Double?
+    var readableDesCription : String? {
+       return description?.en?.removingHTMLOccurances
+    }
 }
 
 struct Description : Codable {
@@ -120,8 +123,8 @@ struct Description : Codable {
 struct Links : Codable{
     let homepage: [String]?
     let whitepaper: String?
-    let subredditURL: String?
-    let reposURL: ReposURL?
+    let subredditUrl: String?
+    let reposUrl: ReposURL?
 }
 
 struct ReposURL : Codable{
