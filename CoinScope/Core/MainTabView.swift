@@ -17,7 +17,6 @@ struct MainTabView: View {
     var body: some View {
         TabView {
             // MARK: -  Home
-
             HomeView()
                 .environmentObject(homeViewModel)
                 .tabItem {
@@ -38,12 +37,18 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Portfolio", systemImage: "bag")
                 }
+            // MARK: -  setting
+            
+            SettingView()
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
+
         }
         .onAppear {
             homeViewModelAllCoinsSubscription = homeViewModel.$allCoins
                 .sink { coins in
                     portfolioViewModel.coinList = coins
-//                    homeViewModelAllCoinsSubscription?.cancel()
                 }
                 
                 

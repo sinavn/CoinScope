@@ -46,6 +46,10 @@
 		6C86B0EB2C9F42D6008A894D /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C86B0EA2C9F42D6008A894D /* ChartView.swift */; };
 		6C86B0ED2C9F6D8B008A894D /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C86B0EC2C9F6D8B008A894D /* DateExt.swift */; };
 		6CB500042C7D19F00059B6D5 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB500032C7D19F00059B6D5 /* LocalFileManager.swift */; };
+		6CCA5F622CBBF21D00ED5E92 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCA5F612CBBF21D00ED5E92 /* SettingView.swift */; };
+		6CCA5F642CBBF22C00ED5E92 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCA5F632CBBF22C00ED5E92 /* SettingViewModel.swift */; };
+		6CCA5F6C2CC191B900ED5E92 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6CCA5F6B2CC191B900ED5E92 /* GoogleSignIn */; };
+		6CCA5F6E2CC191B900ED5E92 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6CCA5F6D2CC191B900ED5E92 /* GoogleSignInSwift */; };
 		6CFC28992C6A321500DE2416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CFC28982C6A321500DE2416 /* Assets.xcassets */; };
 		6CFC289C2C6A334900DE2416 /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFC289B2C6A334900DE2416 /* ColorExt.swift */; };
 		6CFC28CA2C6B791700DE2416 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFC28C92C6B791700DE2416 /* MainTabView.swift */; };
@@ -94,6 +98,9 @@
 		6C86B0EA2C9F42D6008A894D /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		6C86B0EC2C9F6D8B008A894D /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		6CB500032C7D19F00059B6D5 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
+		6CCA5F612CBBF21D00ED5E92 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		6CCA5F632CBBF22C00ED5E92 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		6CCA5F692CC15F2600ED5E92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6CFC28982C6A321500DE2416 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Preview Content/Assets.xcassets"; sourceTree = "<group>"; };
 		6CFC289B2C6A334900DE2416 /* ColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
 		6CFC28C92C6B791700DE2416 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -106,6 +113,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CCA5F6C2CC191B900ED5E92 /* GoogleSignIn in Frameworks */,
+				6CCA5F6E2CC191B900ED5E92 /* GoogleSignInSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +126,6 @@
 			children = (
 				6C6BDD032C8C902D00CDEBDC /* Views */,
 				6C6BDD042C8C904400CDEBDC /* ViewModels */,
-				6C6BDD022C8C901000CDEBDC /* Components */,
 			);
 			path = MarketData;
 			sourceTree = "<group>";
@@ -183,18 +191,11 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		6C6BDD022C8C901000CDEBDC /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				6C6BDD002C8C895700CDEBDC /* GweiCardView.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
 		6C6BDD032C8C902D00CDEBDC /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				6C1B18092C87983B00C86865 /* MarketDataView.swift */,
+				6C6BDD002C8C895700CDEBDC /* GweiCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,6 +227,7 @@
 		6C8609E72C6A232C00D33CD6 /* CoinScope */ = {
 			isa = PBXGroup;
 			children = (
+				6CCA5F692CC15F2600ED5E92 /* Info.plist */,
 				6C8609E82C6A232C00D33CD6 /* CoinScopeApp.swift */,
 				6C5FB77B2C74C89D00E5323B /* Utilities */,
 				6CFC289A2C6A333800DE2416 /* Extensions */,
@@ -273,6 +275,31 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		6CCA5F602CBBF20700ED5E92 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				6CCA5F662CBBF2C100ED5E92 /* ViewModels */,
+				6CCA5F652CBBF2AB00ED5E92 /* Views */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		6CCA5F652CBBF2AB00ED5E92 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6CCA5F612CBBF21D00ED5E92 /* SettingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6CCA5F662CBBF2C100ED5E92 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6CCA5F632CBBF22C00ED5E92 /* SettingViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		6CFC289A2C6A333800DE2416 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,10 +316,11 @@
 			isa = PBXGroup;
 			children = (
 				6CFC28C92C6B791700DE2416 /* MainTabView.swift */,
-				6C1B18082C87981F00C86865 /* MarketData */,
-				6C692A542C6FA3AE00E0E669 /* Portfoilio */,
 				6CFC28C62C6B78A200DE2416 /* Home */,
 				6C86B0E32C9F17D1008A894D /* CoinDetail */,
+				6C1B18082C87981F00C86865 /* MarketData */,
+				6C692A542C6FA3AE00E0E669 /* Portfoilio */,
+				6CCA5F602CBBF20700ED5E92 /* Setting */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -364,6 +392,10 @@
 			dependencies = (
 			);
 			name = CoinScope;
+			packageProductDependencies = (
+				6CCA5F6B2CC191B900ED5E92 /* GoogleSignIn */,
+				6CCA5F6D2CC191B900ED5E92 /* GoogleSignInSwift */,
+			);
 			productName = CoinScope;
 			productReference = 6C8609E52C6A232C00D33CD6 /* CoinScope.app */;
 			productType = "com.apple.product-type.application";
@@ -392,6 +424,9 @@
 				Base,
 			);
 			mainGroup = 6C8609DC2C6A232C00D33CD6;
+			packageReferences = (
+				6CCA5F6A2CC191B900ED5E92 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			productRefGroup = 6C8609E62C6A232C00D33CD6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -419,6 +454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C692A462C6E31AF00E0E669 /* CoinRowView.swift in Sources */,
+				6CCA5F622CBBF21D00ED5E92 /* SettingView.swift in Sources */,
 				6CFC28CF2C6B936B00DE2416 /* CoinModel.swift in Sources */,
 				6C86B0DC2C9E106A008A894D /* PortfolioContainer.xcdatamodeld in Sources */,
 				6C7CE4D42C8F793800A8EF3A /* HomeStatsView.swift in Sources */,
@@ -436,6 +472,7 @@
 				6C86B0E02C9EE3C5008A894D /* CoinDetailView.swift in Sources */,
 				6CB500042C7D19F00059B6D5 /* LocalFileManager.swift in Sources */,
 				6C692A512C6F8C8D00E0E669 /* HomeView.swift in Sources */,
+				6CCA5F642CBBF22C00ED5E92 /* SettingViewModel.swift in Sources */,
 				6C2A3B932CBA94A70075ABE1 /* String.swift in Sources */,
 				6CFC28CA2C6B791700DE2416 /* MainTabView.swift in Sources */,
 				6C692A532C6F9A0000E0E669 /* HomeViewModel.swift in Sources */,
@@ -596,6 +633,7 @@
 				DEVELOPMENT_TEAM = C2RY72XWQ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CoinScope/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -625,6 +663,7 @@
 				DEVELOPMENT_TEAM = C2RY72XWQ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CoinScope/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -665,6 +704,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6CCA5F6A2CC191B900ED5E92 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6CCA5F6B2CC191B900ED5E92 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CCA5F6A2CC191B900ED5E92 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		6CCA5F6D2CC191B900ED5E92 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CCA5F6A2CC191B900ED5E92 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		6C86B0DA2C9E1069008A894D /* PortfolioContainer.xcdatamodeld */ = {

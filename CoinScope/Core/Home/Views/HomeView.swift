@@ -35,12 +35,11 @@ struct HomeView: View {
                     }
                     
                 })
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("Live Market")
-                .onAppear(perform: {
-                    
-                })
+               
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Live Market")
+            
         })
                 .searchable(text: $viewModel.homeSearchField, prompt:"Search for coin")
     }

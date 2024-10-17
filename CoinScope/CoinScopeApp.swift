@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 @main
 struct CoinScopeApp: App {
     var body: some Scene {
         WindowGroup {
                 MainTabView()
-            
+                .onOpenURL { url in
+                    GIDSignIn.sharedInstance.handle(url)
+                }
         }
+        
     }
 }
