@@ -50,6 +50,8 @@
 		6CCA5F642CBBF22C00ED5E92 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCA5F632CBBF22C00ED5E92 /* SettingViewModel.swift */; };
 		6CCA5F6C2CC191B900ED5E92 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6CCA5F6B2CC191B900ED5E92 /* GoogleSignIn */; };
 		6CCA5F6E2CC191B900ED5E92 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6CCA5F6D2CC191B900ED5E92 /* GoogleSignInSwift */; };
+		6CCA5F722CC2574500ED5E92 /* GoogleLogInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCA5F712CC2574500ED5E92 /* GoogleLogInButton.swift */; };
+		6CCA5F742CC2638900ED5E92 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCA5F732CC2638900ED5E92 /* LogInView.swift */; };
 		6CFC28992C6A321500DE2416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CFC28982C6A321500DE2416 /* Assets.xcassets */; };
 		6CFC289C2C6A334900DE2416 /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFC289B2C6A334900DE2416 /* ColorExt.swift */; };
 		6CFC28CA2C6B791700DE2416 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CFC28C92C6B791700DE2416 /* MainTabView.swift */; };
@@ -101,6 +103,8 @@
 		6CCA5F612CBBF21D00ED5E92 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		6CCA5F632CBBF22C00ED5E92 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		6CCA5F692CC15F2600ED5E92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6CCA5F712CC2574500ED5E92 /* GoogleLogInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLogInButton.swift; sourceTree = "<group>"; };
+		6CCA5F732CC2638900ED5E92 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		6CFC28982C6A321500DE2416 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Preview Content/Assets.xcassets"; sourceTree = "<group>"; };
 		6CFC289B2C6A334900DE2416 /* ColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
 		6CFC28C92C6B791700DE2416 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -278,8 +282,8 @@
 		6CCA5F602CBBF20700ED5E92 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				6CCA5F662CBBF2C100ED5E92 /* ViewModels */,
 				6CCA5F652CBBF2AB00ED5E92 /* Views */,
+				6CCA5F662CBBF2C100ED5E92 /* ViewModels */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -288,6 +292,8 @@
 			isa = PBXGroup;
 			children = (
 				6CCA5F612CBBF21D00ED5E92 /* SettingView.swift */,
+				6CCA5F712CC2574500ED5E92 /* GoogleLogInButton.swift */,
+				6CCA5F732CC2638900ED5E92 /* LogInView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -475,6 +481,7 @@
 				6CCA5F642CBBF22C00ED5E92 /* SettingViewModel.swift in Sources */,
 				6C2A3B932CBA94A70075ABE1 /* String.swift in Sources */,
 				6CFC28CA2C6B791700DE2416 /* MainTabView.swift in Sources */,
+				6CCA5F722CC2574500ED5E92 /* GoogleLogInButton.swift in Sources */,
 				6C692A532C6F9A0000E0E669 /* HomeViewModel.swift in Sources */,
 				6C86B0E92C9F19DD008A894D /* CoinDetailService.swift in Sources */,
 				6CFC289C2C6A334900DE2416 /* ColorExt.swift in Sources */,
@@ -484,6 +491,7 @@
 				6C7CE4D02C8F098800A8EF3A /* StatisticModel.swift in Sources */,
 				6C8609E92C6A232C00D33CD6 /* CoinScopeApp.swift in Sources */,
 				6C86B0E22C9F0B39008A894D /* CoinDetailModel.swift in Sources */,
+				6CCA5F742CC2638900ED5E92 /* LogInView.swift in Sources */,
 				6C5FB77D2C74C8D500E5323B /* NetworkinManager.swift in Sources */,
 				6C1B180C2C87986F00C86865 /* MarketDataViewModel.swift in Sources */,
 				6C1B18072C8788B200C86865 /* GweiModel.swift in Sources */,

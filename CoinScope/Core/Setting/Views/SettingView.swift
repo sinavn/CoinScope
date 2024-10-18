@@ -10,58 +10,61 @@ import GoogleSignInSwift
 import GoogleSignIn
 
 struct SettingView: View {
-    @State private var isLoggedIn = false
-    @State private var username = "John Doe"
-    @State private var isNotificationsEnabled = true
-    @State private var notificationFrequency = 0
-    @State private var selectedCurrency = "USD"
-    @State private var isDarkMode = false
-    @State private var selectedLanguage = "en"
-    @State private var isPasscodeEnabled = false
-    @State private var isFaceIDEnabled = false
+    @EnvironmentObject var viewModel : SettingViewModel
+    
+    enum SettingsNavigationDestination : Hashable {
+    case logInView
+    case privacyPolicy
+    case terms
+    case support
+    case faq
+    }
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $viewModel.navigationPath, root: {
 
             Form {
                 // Login Section
                 Section {
-//                    if isLoggedIn {
-//                        HStack {
-//                            Image(systemName: "person.circle.fill")
-//                                .resizable()
-//                                .frame(width: 50, height: 50)
-//                                .clipShape(Circle())
-//                            
-//                            VStack(alignment: .leading) {
-//                                Text(username)
-//                                    .font(.headline)
-//                                Button(action: {
-//                                    // Logout action
-//                                    isLoggedIn = false
-//                                }) {
-//                                    Text("Logout")
-//                                        .foregroundColor(.red)
-//                                }
-//                            }
-//                        }
-//                    } else {
-//                        Button(action: {
-//                            // Login action
-//                        }) {
-//                            HStack {
-//                                Image(systemName: "person.crop.circle.badge.plus")
-//                                Text("Login / Sign up")
-//                            }
-//                        }
-//                    }
-                    GoogleSignInButton(action: handleSignIn)
+                    if viewModel.isLoggedIn {
+                        HStack {
+                            AsyncImage(url: viewModel.profilePic)
+                                
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle())
+                            
+                            VStack(alignment: .leading) {
+                                Text(viewModel.username ?? "")
+                                    .font(.headline)
+                                
+                                    Text("Logout")
+                                        .foregroundColor(.red)
+                                        .onTapGesture {
+                                            viewModel.isShowingSignOutAlert.toggle()
+                                        }
+                            }
+                            .alert("Are you sure you want to sign out", isPresented: $viewModel.isShowingSignOutAlert) {
+                                Button(role: .destructive, action: viewModel.signOut, label: {Text("Sign out")})
+                                Button(role: .cancel, action: {}, label: {Text("Cancel")})
+                            }
+                        }
+                    } else {
+                        Button(action: {
+                            viewModel.navigationPath.append(SettingsNavigationDestination.logInView)
+                        }) {
+                            HStack {
+                                Image(systemName: "person.crop.circle.badge.plus")
+                                Text("Login / Sign up")
+                            }
+                        }
+                        
+                    }
                 }
                 
                 // General settings
                 Section(header: Text("Notifications")) {
-                    Toggle("Enable Notifications", isOn: $isNotificationsEnabled)
-                    Picker("Notification Frequency", selection: $notificationFrequency) {
+                    Toggle("Enable Notifications", isOn: $viewModel.isNotificationsEnabled)
+                    Picker("Notification Frequency", selection: $viewModel.notificationFrequency) {
                         Text("Hourly").tag(0)
                         Text("Daily").tag(1)
                     }
@@ -69,7 +72,7 @@ struct SettingView: View {
                 }
                 
                 Section(header: Text("Currency")) {
-                    Picker("Currency", selection: $selectedCurrency) {
+                    Picker("Currency", selection: $viewModel.selectedCurrency) {
                         Text("USD").tag("USD")
                         Text("EUR").tag("EUR")
                         Text("GBP").tag("GBP")
@@ -77,11 +80,11 @@ struct SettingView: View {
                 }
                 
                 Section(header: Text("Appearance")) {
-                    Toggle("Dark Mode", isOn: $isDarkMode)
+                    Toggle("Dark Mode", isOn: $viewModel.isDarkMode)
                 }
                 
                 Section(header: Text("Language")) {
-                    Picker("App Language", selection: $selectedLanguage) {
+                    Picker("App Language", selection: $viewModel.selectedLanguage) {
                         Text("English").tag("en")
                         Text("Spanish").tag("es")
                         Text("French").tag("fr")
@@ -90,8 +93,8 @@ struct SettingView: View {
                 
                 // Security settings
                 Section(header: Text("Security")) {
-                    Toggle("Enable Passcode", isOn: $isPasscodeEnabled)
-                    Toggle("Use Face ID", isOn: $isFaceIDEnabled)
+                    Toggle("Enable Passcode", isOn: $viewModel.isPasscodeEnabled)
+                    Toggle("Use Face ID", isOn: $viewModel.isFaceIDEnabled)
                 }
                 
                 // Data Management
@@ -112,10 +115,46 @@ struct SettingView: View {
                         Text("1.0.0")
                             .foregroundColor(.gray)
                     }
-                    NavigationLink("Privacy Policy", destination: Text("Privacy Policy Content"))
-                    NavigationLink("Terms of Service", destination: Text("Terms of Service Content"))
-                    NavigationLink("Support", destination: Text("Support Information"))
-                    NavigationLink("FAQ", destination: Text("Frequently Asked Questions"))
+                    Button(action: {
+                        viewModel.navigationPath.append(SettingsNavigationDestination.privacyPolicy)
+                    }, label: {
+                        HStack {
+                            Text("Privacy Policy")
+                            Spacer()
+                            Image(systemName: "chevron.forward")
+                                .foregroundColor(.gray)
+                        }
+                    })
+                    Button(action: {
+                        viewModel.navigationPath.append(SettingsNavigationDestination.terms)
+                    }, label: {
+                        HStack {
+                            Text("Terms of Service")
+                            Spacer()
+                            Image(systemName: "chevron.forward")
+                                .foregroundColor(.gray)
+                        }
+                    })
+                    Button(action: {
+                        viewModel.navigationPath.append(SettingsNavigationDestination.support)
+                    }, label: {
+                        HStack {
+                            Text("Support")
+                            Spacer()
+                            Image(systemName: "chevron.forward")
+                                .foregroundColor(.gray)
+                        }
+                    })
+                    Button(action: {
+                        viewModel.navigationPath.append(SettingsNavigationDestination.faq)
+                    }, label: {
+                        HStack {
+                            Text("FAQ")
+                            Spacer()
+                            Image(systemName: "chevron.forward")
+                                .foregroundColor(.gray)
+                        }
+                    })
                 }
                 
                 // Feedback
@@ -128,23 +167,33 @@ struct SettingView: View {
                     }
                 }
             }
+            .navigationDestination(for: SettingsNavigationDestination.self) { destination in
+                switch destination {
+                case .logInView:
+                    LogInView()
+                case .privacyPolicy:
+                    Text("Privacy policy")
+                case .terms:
+                    Text("terms of service")
+                case .support:
+                    Text("aupport")
+                case .faq:
+                    Text("FAQ")
+                }
+            }
             .navigationTitle("Settings")
+        })
+        .onAppear {
+            viewModel.checkSignInStatus()
         }
     }
     
-    func handleSignIn() {
-        guard let rootViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
-        GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { result, error in
-            if error == nil{
-                print(result?.user.profile?.name)
-            }else{
-                print(error)
-            }
-        }
-    }
+    
 }
 
 
 #Preview {
     SettingView()
 }
+
+

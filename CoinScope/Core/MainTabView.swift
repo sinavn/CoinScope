@@ -13,6 +13,7 @@ struct MainTabView: View {
 
     @StateObject private var homeViewModel = HomeViewModel()
     @StateObject private var portfolioViewModel = PortfolioViewModel()
+    @StateObject private var settingViewModel = SettingViewModel()
     @State var homeViewModelAllCoinsSubscription : AnyCancellable?
     var body: some View {
         TabView {
@@ -40,6 +41,7 @@ struct MainTabView: View {
             // MARK: -  setting
             
             SettingView()
+                .environmentObject(settingViewModel)
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
