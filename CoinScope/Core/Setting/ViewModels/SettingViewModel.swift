@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import GoogleSignIn
-import GoogleSignInSwift
 
 class SettingViewModel : ObservableObject {
     
@@ -23,40 +21,47 @@ class SettingViewModel : ObservableObject {
     @Published var isPasscodeEnabled = false
     @Published var isFaceIDEnabled = false
     @Published var navigationPath = NavigationPath()
+    let fireBaseService = FireBaseService.shared
     
-     init() {
+    func signIn() {
+        fireBaseService.handleSignIn {[weak self] result in
+            switch result {
+            case.success(let user):
+                self?.username = user.displayName
+                self?.profilePic = user.photoURL
+                self?.isLoggedIn = true
+                self?.navigationPath = NavigationPath()
+            case.failure(let error):
+                print(error)
+                self?.isLoggedIn = false
+            }
+        }
         
     }
-    
-    func handleSignIn() {
-        guard let rootViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
-        GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) {[weak self] signResult, error in
-            guard error == nil , let result = signResult  else{
-                print("google sign in error \(error?.localizedDescription ?? "")")
-                return
-            }
-            self?.username = result.user.profile?.name
-            self?.profilePic = result.user.profile?.imageURL(withDimension: 90)
-            self?.isLoggedIn = true
-            self?.navigationPath = NavigationPath()
-        }
-    }
     func signOut(){
-        GIDSignIn.sharedInstance.signOut()
-        isLoggedIn = false
+        fireBaseService.signOut {[weak self] result in
+            switch result {
+            case.success():
+                self?.isLoggedIn = false
+            case.failure(let error):
+                self?.isLoggedIn = true
+            }
+        }
     }
     
-    func checkSignInStatus (){
-        GIDSignIn.sharedInstance.restorePreviousSignIn {[weak self] signResult, error in
-            guard error == nil , let result = signResult  else{
-                print("user did not sign in yet:  \(error?.localizedDescription ?? "")")
+    func checkSignInStatus(){
+        fireBaseService.checkSignInStatus {[weak self] result in
+            switch result {
+            case.success(let user):
+                self?.username = user.displayName
+                self?.profilePic = user.photoURL
+                self?.isLoggedIn = true
+            case.failure(let error):
                 self?.isLoggedIn = false
-                return
+                print(error)
             }
-            self?.username = result.profile?.name
-            self?.profilePic = result.profile?.imageURL(withDimension: 90)
-            self?.isLoggedIn = true
         }
+        
     }
     
 }

@@ -6,10 +6,17 @@
 //
 
 import SwiftUI
+import FirebaseCore
 import GoogleSignIn
+
 
 @main
 struct CoinScopeApp: App {
+    
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
                 MainTabView()
@@ -17,6 +24,5 @@ struct CoinScopeApp: App {
                     GIDSignIn.sharedInstance.handle(url)
                 }
         }
-        
     }
 }

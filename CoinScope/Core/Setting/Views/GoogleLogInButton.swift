@@ -11,7 +11,7 @@ struct GoogleLogInButton: View {
     @EnvironmentObject var viewModel : SettingViewModel
     var body: some View {
         Button(action: {
-            viewModel.handleSignIn()
+            viewModel.signIn()
         }, label: {
             HStack{
                 Image("Google_Icon")

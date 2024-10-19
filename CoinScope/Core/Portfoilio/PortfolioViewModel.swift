@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 import Combine
+import FirebaseAuth
+import FirebaseFirestore
 
 class PortfolioViewModel : ObservableObject {
     @Published var coinList : [CoinModel] = []
@@ -58,13 +60,8 @@ class PortfolioViewModel : ObservableObject {
     }
     func updateCoin(coin:CoinModel , amount : Double){
         CoreDataService.shared.updatePortfolio(coin: coin, amount: amount)
-        
-//        if let updatingCoinIndex = holdings.firstIndex(where: {$0.name == coin.name}){
-//            holdings[updatingCoinIndex].currentHoldings = (holdings[updatingCoinIndex].currentHoldings ?? 0) + amount
-//            
-//        }else{
-//            let newCoin = coin.updateHolding(amount: amount)
-//            holdings.append(newCoin)
-//        }
     }
+    
+    
+    
 }
